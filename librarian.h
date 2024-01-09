@@ -5,7 +5,7 @@
 
 class Librarian : public Person {
 private:
-  // his id and salary
+  // their  id and salary
     int staffId;
     int salary;
 
@@ -13,28 +13,22 @@ public:
     
     // Worker construcion
     
-    Librarian(const std::string& name, const std::string& address, const std::string& email, int staffId, int salary)
-        : Person(name, address, email), staffId(staffId), salary(salary) {}
+  Librarian(int staffId, const std::string& name, const std::string& address, int salary)
 
-    //Sets
-    
-    void setStaffId(int newStaffId) {
-        staffId = newStaffId;
-    }
+    //books and members
+  void addMember();
+  void issueBook(int memberID, int bookID);
+  void returnBook(int memberID, int bookID);
 
-    void setSalary(int newSalary) {
-        salary = newSalary;
-    }
+    //salary and ID
+  int getStaffID() const;
+  int getSalary() const;
     
     //Gets
+  void displayBorrowedBooks(int memberID);
+  void setStaffID(int staffID);
+  void setSalary(int salary);
     
-    int getStaffId() const {
-        return staffId;
-    }
-
-    int getSalary() const {
-        return salary;
-    }
 };
 
 #endif 

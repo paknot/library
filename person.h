@@ -19,7 +19,8 @@ public:
     std::string getAddress() const;
     std::string getEmail() const;
 
-    // Sets
+  //Sets
+  
     void setName(const std::string &name);
     void setAddress(const std::string &address);
     void setEmail(const std::string &email);
