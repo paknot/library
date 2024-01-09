@@ -30,4 +30,4 @@ public:
     void borrowBook(Member* borrower, const std::string& dueDate); //pointer to member
 };
 
-#endif // BOOK_H
+#endif
