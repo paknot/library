@@ -8,7 +8,7 @@ class Librarian : public Person {
 	
 private:
   // their  id and salary
-    int staffId;
+    int staffID;
     int salary;
 
 public:

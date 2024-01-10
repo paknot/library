@@ -9,15 +9,15 @@
 
 class Member : public Person {
 private:
-    int memberId;
-    std::vector<Book*> booksLoaned; 
+    int memberID;
+    std::vector<Book> booksLoaned; 
 
 public:
     // Member constructor
-    Member(int memberId, std::string name, std::string address, std::string email);
+    Member(int memberID, std::string name, std::string address, std::string email);
 
     // Gets
-    std::string getMemberId() ;
+    std::string getMemberID() ;
     std::vector<Book> getBooksBorrowed();
 
     //Sets
