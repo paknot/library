@@ -94,7 +94,7 @@ void Book::loadBooksFromFile(const std::string& filename) {
             
             Book::bookList.push_back(book); 
 
-    file.close();
+    
         }
     }   
 }

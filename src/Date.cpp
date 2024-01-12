@@ -121,23 +121,16 @@ Date Date::stringToDate(const std::string &dateString) {
     return Date(day, month, year);
 }
 Date Date::getDateAfter() {
-    //get the current date form system
-    std::time_t t = std::time(0);
-    std::tm* now = std::localtime(&t);
+    //convert to tm struct
+    std::tm tm = {0, 0, 0, this->day, this->month - 1, this->year - 1900};
 
-    //construct a tm
-    this->day = now->tm_mday;
-    this->month = now->tm_mon + 1;    
-    this->year = now->tm_year + 1900; 
+    //make it a time_t
+    std::time_t time = std::mktime(&tm);
 
-    // Convert to time_t and add the days
-    t += 3 * 24 * 3600; 
+    //3 days
+    time += 3 * 24 * 60 * 60;
 
-    //Convert back
-    now = std::localtime(&t);
-
-    //create and return date
-    return Date(now->tm_mday, now->tm_mon + 1, now->tm_year + 1900);
+    //convert back to tm
+    std::tm *newTm = std::localtime(&time);
+    return Date(newTm->tm_mday, newTm->tm_mon + 1, newTm->tm_year + 1900);
 }
-
-

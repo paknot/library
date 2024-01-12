@@ -81,7 +81,7 @@ int Librarian::getStaffID() {
   std::vector<Book> Book::bookList;
 
   void Librarian::issueBook(int memberID, int bookID) {
-    Date today;
+    
     // Find the member
     Member* member = nullptr;
     for (auto& m : memberList) {
@@ -91,8 +91,14 @@ int Librarian::getStaffID() {
         }
     }
 
+    //For time
+    std::time_t currentTime = std::time(nullptr);
+    std::tm *currentTm = std::localtime(&currentTime);
+    Date currentDate(currentTm->tm_mday, currentTm->tm_mon + 1, currentTm->tm_year + 1900);
+    Date newDate = currentDate.getDateAfter();
+
     // Find the book
-    Book* book = nullptr;
+   Book* book = nullptr;
     for (auto& b : Book::bookList) {
         if (b.getBookID() == std::to_string(bookID)) {
             book = &b;
@@ -103,8 +109,8 @@ int Librarian::getStaffID() {
     // Issue the book
     if (member != nullptr && book != nullptr) {
         member->setBooksBorrowed(*book);
-        book->borrowBook(*member, today.getDateAfter());
-        std::cout <<std::endl<< "Book with id" << bookID << " has been loaned to memberID: "<< memberID << std::endl;
+        book->borrowBook(*member, newDate);
+        std::cout <<std::endl<< "Book with id: " << bookID << " has been loaned to memberID: "<< memberID << std::endl;
     } else {
         std::cerr << "unknown error. try again?";
     }
@@ -125,9 +131,9 @@ void Librarian::returnBook(int memberID, int bookID) {
 
     // Find the book
     for (auto& b : Book::bookList) {
-        if (std::stoi(b.getBookID()) == bookID) {
-            book = &b;
-            break;
+    if (b.getBookID() == std::to_string(bookID)) {
+        book = &b;
+        break;
         }
     }
 
