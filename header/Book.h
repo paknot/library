@@ -1,8 +1,17 @@
+
 #ifndef BOOK_H
 #define BOOK_H
-#include "Member.h"
+
 #include "Date.h"
+#include "Member.h"
 #include <string>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include <iostream>
+
+
+class Date;
 
 
 class Book {
@@ -12,22 +21,37 @@ private:
     std::string authorFirstName;
     std::string authorLastName;
     std::string bookType;
-   	Date dueDate; 
+   	Date dueDate;
+    
     Member borrower; 
 public:
     //Book Constructor
     Book(int bookID, std::string bookName, std::string authorFirstName, std::string authorLastName);
+    Book();
     //Gets
-	int getBookID();
-    std::string getBookName();
-    std::string getAuthorFirstName();
-    std::string getAuthorLastName();
-    std::string getDueDate();
+
+	
+    std::string getBookID() const;
+    std::string getBookName() const;
+    std::string getAuthorFirstName() const;
+    std::string getAuthorLastName() const;
+    Date getDueDate() const;
+
     //Set duedate
+
     void setDueDate(Date dueDate);
+
     //return and borrow book
+
     void returnBook();
-    void borrowBook(Member borrower, Date dueDate); 
+    void borrowBook(Member borrower, Date dueDate);
+
+    //Books from a file
+
+    void loadBooksFromFile(const std::string& filename); 
+
+    //book vector
+    static std::vector<Book> bookList;
 };
 
 #endif

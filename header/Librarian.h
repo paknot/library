@@ -1,7 +1,11 @@
+
 #ifndef LIBRARIAN_H
 #define LIBRARIAN_H
-
 #include "Person.h"
+#include "Member.h"
+#include "Date.h"
+#include "Book.h"
+#include <vector>
 #include <string>
 
 class Librarian : public Person {
@@ -10,12 +14,13 @@ private:
   // their  id and salary
     int staffID;
     int salary;
+    
 
 public:
     
     // Worker construcion
     
-  Librarian(int staffId, std::string name, std::string address, std::string email, int salary);
+  Librarian(int staffID, std::string name, std::string adress, std::string email, int salary);
 
     //member and books
   void addMember();
@@ -27,9 +32,12 @@ public:
   int getStaffID();
   int getSalary();
   
+
+  std::vector<Member> memberList;
+  
     
     //Sets
-  
+  void getID();
   void setStaffID(int staffID);
   void setSalary(int salary);
   	
