@@ -24,7 +24,7 @@ std::vector<Book>& Member::getBooksBorrowed(){
 	return this->booksLoaned;
 }
 void Member::setBooksBorrowed(Book book) {
-	this->booksLoaned.push_back(book);
+    this->booksLoaned.push_back(book);
 }
 
 

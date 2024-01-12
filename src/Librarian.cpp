@@ -48,7 +48,6 @@ int Librarian::getStaffID() {
         std::cout << "Enter member's name: " << std::endl;
         std::cin >> memName;
         if (person.isString(memName)) {
-            std::cout << "Valid name." << std::endl;
             validName = true;
         } else {
             std::cerr << "Name must only contain letters." << std::endl;
@@ -57,7 +56,6 @@ int Librarian::getStaffID() {
         std::cout << "Enter member's email: " << std::endl;
         std::cin >> memEmail;
         if (person.isEmail(memEmail)) {
-            std::cout << "Valid email." << std::endl;
             validEmail = true;
         } else {
             std::cerr << "Invalid email. Email must look like this user@example.com" << std::endl;
@@ -73,7 +71,7 @@ int Librarian::getStaffID() {
     Member newMember(id, memName, memAddress, memEmail);
     memberList.push_back(newMember);
 
-    std::cout << "New member added with the following details:" << std::endl;
+    std::cout <<std::endl<< "New member added with the following details:" << std::endl;
     std::cout << "ID: " << id << std::endl;
     std::cout << "Name: " << memName << std::endl;
     std::cout << "Address: " << memAddress << std::endl;
@@ -81,7 +79,9 @@ int Librarian::getStaffID() {
 
   }
   std::vector<Book> Book::bookList;
+
   void Librarian::issueBook(int memberID, int bookID) {
+    Date today;
     // Find the member
     Member* member = nullptr;
     for (auto& m : memberList) {
@@ -94,32 +94,20 @@ int Librarian::getStaffID() {
     // Find the book
     Book* book = nullptr;
     for (auto& b : Book::bookList) {
-        if (std::stoi(b.getBookID()) == bookID) {
+        if (b.getBookID() == std::to_string(bookID)) {
             book = &b;
             break;
         }
     }
 
-    // If both member and book are found
-    if (member && book) {
-        
-        Date today;
-        Date dueDate = today.getDateAfter(); 
-
-        
-        book->setDueDate(dueDate);
-        book->borrowBook(*member, dueDate); 
-        std::cout << "A book with ID " << bookID << " has been loaned to member with ID "<< memberID << std::endl;
+    // Issue the book
+    if (member != nullptr && book != nullptr) {
+        member->setBooksBorrowed(*book);
+        book->borrowBook(*member, today.getDateAfter());
     } else {
-        //if not found
-        if (!member) {
-            std::cerr << "Member ID " << memberID << " not found." << std::endl;
-        }
-        if (!book) {
-            std::cerr << "Book ID " << bookID << " not found." << std::endl;
-        }
+        std::cerr << "unknown error. try again?";
     }
-}
+  }
 
 void Librarian::returnBook(int memberID, int bookID) {
     Member* member = nullptr;
