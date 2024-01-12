@@ -59,25 +59,42 @@ void Book::loadBooksFromFile(const std::string& filename) {
     std::getline(file, line);
 
     while (getline(file, line)) {
-        std::istringstream ss(line);
-        int bookID;
-        std::string bookName, authorFirstName, authorLastName, pageCount, bookType;
-        
-        
-        if (ss >> bookID && std::getline(ss, bookName, ',') && std::getline(ss, pageCount, ',') 
-            && std::getline(ss, authorFirstName, ',') && std::getline(ss, authorLastName, ',') 
-            && std::getline(ss, bookType)) {
-            
-            // Trim potential leading spaces
-            bookName.erase(0, bookName.find_first_not_of(" "));
-            authorFirstName.erase(0, authorFirstName.find_first_not_of(" "));
-            authorLastName.erase(0, authorLastName.find_first_not_of(" "));
-            
-           
-            Book book(bookID, bookName, authorFirstName, authorLastName);
-            Book::bookList.push_back(book); 
+        std::vector<std::string> marks;
+        std::string mark;
+        bool inQuote = false;
+        for (char ch : line)
+        {
+            if (ch == '"')
+            {
+                inQuote = !inQuote;
+            }
+            else if (ch == ',' && !inQuote)
+            {
+
+                marks.push_back(mark);
+                mark.clear();
+            }
+            else
+            {
+
+                mark += ch;
+            }
         }
-    }
+
+        marks.push_back(mark);
+
+        if(marks.size() >= 4) { 
+            int bookID = std::stoi(marks[0]);
+            std::string bookName = marks[1];
+            std::string authorFirstName = marks[3]; 
+            std::string authorLastName = marks[4]; 
+
+            
+            Book book(bookID, bookName, authorFirstName, authorLastName);
+            
+            Book::bookList.push_back(book); 
 
     file.close();
+        }
+    }   
 }

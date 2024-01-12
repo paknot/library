@@ -104,6 +104,7 @@ int Librarian::getStaffID() {
     if (member != nullptr && book != nullptr) {
         member->setBooksBorrowed(*book);
         book->borrowBook(*member, today.getDateAfter());
+        std::cout <<std::endl<< "Book with id" << bookID << " has been loaned to memberID: "<< memberID << std::endl;
     } else {
         std::cerr << "unknown error. try again?";
     }
