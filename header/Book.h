@@ -22,7 +22,7 @@ private:
     std::string authorLastName;
     std::string bookType;
    	Date dueDate;
-    
+    bool isLoaned = false;
     Member borrower; 
 public:
     //Book Constructor
@@ -37,12 +37,13 @@ public:
     std::string getAuthorLastName() const;
     Date getDueDate() ;
 
-    //Set duedate
+    bool getIsLoaned() const;
+    void setIsLoaned(bool isLoaned);
 
     void setDueDate(Date dueDate);
 
     //return and borrow book
-
+     
     void returnBook();
     void borrowBook(Member borrower, Date dueDate);
 

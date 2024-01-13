@@ -22,6 +22,7 @@ public:
     
 
     //Dates
+    friend std::ostream& operator<<(std::ostream& os, const Date& dt);
     bool isDateValid();
     bool isLeap(int year);
     static int daysBetween(const Date& date1, const Date& date2);

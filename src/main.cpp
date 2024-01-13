@@ -20,14 +20,14 @@ int main() {
     std::string libName, libAddress, libEmail;
     int libStaffID, libSalary;
 
-    std::cout << "Please enter your details to initialize the Librarian." << std::endl;
+    std::cout << "Please enter your as a Librarian" << std::endl;
 
     // Get and validate name
     do {
-        std::cout << "Enter your name (alphabetic characters only): ";
+        std::cout << "Enter your name (letters only): ";
         std::getline(std::cin, libName);
         if (!Person::isString(libName)) {
-            std::cout << "Invalid name. Please use alphabetic characters only.\n";
+            std::cout << "Invalid name. Please use letters only.\n";
         }
     } while (!Person::isString(libName));
 
@@ -40,13 +40,13 @@ int main() {
         std::cout << "Enter your email: ";
         std::getline(std::cin, libEmail);
         if (!Person::isEmail(libEmail)) {
-            std::cout << "Invalid email format. Please try again.\n";
+            std::cout << "Invalid email format. Should be in a format user@user.com .\n";
         }
     } while (!Person::isEmail(libEmail));
 
     // Get and validate staff ID
     do {
-        std::cout << "Enter your staff ID: ";
+        std::cout << "Enter librarian staff ID: ";
         if (!(std::cin >> libStaffID)) {
             std::cout << "Invalid input. Please enter a number.\n";
             std::cin.clear(); // Clear the error state
@@ -58,7 +58,7 @@ int main() {
 
     // Get and validate salary
     do {
-        std::cout << "Enter your salary: ";
+        std::cout << "Enter librarian salary: ";
         if (!(std::cin >> libSalary)) {
             std::cout << "Invalid input. Please enter a number.\n";
             std::cin.clear(); // Clear the error state

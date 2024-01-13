@@ -28,21 +28,39 @@ std::string Book::getAuthorLastName() const{
 Date Book::getDueDate() {
     return this->dueDate;
 }
+
+bool Book::getIsLoaned() const {
+    return this->isLoaned;
+}
+
+void Book::setIsLoaned(bool isLoaned) {
+    this->isLoaned = isLoaned;
+}
+
     //Set due date
 void Book::setDueDate(Date dueDate)
 {
     this->dueDate = dueDate;
 }
     //Books
+
+void Book::borrowBook(Member borrower, Date duedate) {
+    if(!this->isLoaned) {
+        this->borrower = borrower;
+        setDueDate(duedate);
+        this->isLoaned = true;
+        std::cout << "Debug: Book ID " << this->getBookID() << " due date set to: " << this->getDueDate() << std::endl;
+    } else {
+        std::cerr << "Book is already loaned." << std::endl;
+    }
+}
+
 void Book::returnBook(){
     Member nMember;
     Date nDate;
     this->borrower = nMember;
     this->dueDate = nDate;
-}
-void Book::borrowBook(Member borrower, Date duedate) {    
-    this->borrower = borrower;    
-    setDueDate(duedate); 
+    this->isLoaned = false;
 }
 
 //load the books from a file

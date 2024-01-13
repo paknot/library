@@ -89,9 +89,10 @@ while (true) {
     }
 
     //For time
-    std::time_t currentTime = std::time(nullptr);
-    std::tm *currentTm = std::localtime(&currentTime);
+    Book books;
     Date currentDate;
+    Date newDate = currentDate.getDateAfter();
+    
    
     // Find the book
    Book* book = nullptr;
@@ -102,14 +103,20 @@ while (true) {
         }
     }
 
+    if (book != nullptr && book->getIsLoaned()) {
+        std::cerr << "The book is currently loaned and cannot be issued." << std::endl;
+        return;
+    }
+    
+
     // Issue the book
     if (member != nullptr && book != nullptr) {
         member->setBooksBorrowed(*book);
-        book->borrowBook(*member, currentDate.getDateAfter());
+        book->borrowBook(*member, newDate);
         std::cout <<std::endl<< "Book with id: " << bookID << " has been loaned to memberID: "<< memberID << std::endl;
         std::cout << "Current date (DD-MM-YYYY): " << currentDate.getDay() << "-" << currentDate.getMonth() << "-" << currentDate.getYear() << std::endl;
-        std::cout << "Due date (DD-MM-YYYY): " << currentDate.getDateAfter().getDay() << "-" << currentDate.getDateAfter().getMonth() << "-" << currentDate.getDateAfter().getYear()<< std::endl;
-    } else {
+        std::cout << "Due date (DD-MM-YYYY): " << book->getDueDate()<< std::endl;
+        } else {
         std::cerr << "unknown error. try again?";
     }
 
@@ -140,10 +147,11 @@ void Librarian::returnBook(int memberID, int bookID) {
     if (member && book) {
         
         Date today; 
-        Date dueDate = book->getDueDate();
+        
+        
 
         // Assuming Date class has a method to calculate the difference in days
-        int daysOverdue = Date::daysBetween(dueDate, today);
+        int daysOverdue = Date::daysBetween(book->getDueDate(), today);
         if (daysOverdue > 0) {
             // Calculate fine, £1 per day overdue
             fine = daysOverdue;
@@ -175,6 +183,7 @@ void Librarian::returnBook(int memberID, int bookID) {
 }
 void Librarian::displayBorrowedBooks(int memberID) {
     // Find the member again
+
     Member* member = nullptr;
     for (auto& m : memberList) {
         if (std::stoi(m.getMemberID()) == memberID) {
@@ -197,7 +206,7 @@ void Librarian::displayBorrowedBooks(int memberID) {
             std::cout << "Book ID: " << book.getBookID()
                       << ", Title: " << book.getBookName()
                       << ", Author: " << book.getAuthorFirstName() << " " << book.getAuthorLastName()
-                      << ", Due Date: " << book.getDueDate().getDay() << "-" << book.getDueDate().getMonth() << "-" << book.getDueDate().getYear()
+                      << ", Due Date: " << book.getDueDate()
                       << std::endl;
         }
     } else {

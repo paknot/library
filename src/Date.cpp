@@ -1,6 +1,6 @@
 #include "../header/Date.h"
 
-Date::Date(int day, int month, int year){
+Date::Date(int day, int month, int year) : day(day), month(month), year(year){
    
 }
 Date::Date(){
@@ -13,13 +13,13 @@ Date::Date(){
 
     //Gets
 int Date::getDay()const{
-    return this->day;
+    return day;
 }
 int Date::getMonth() const{
-    return this->month;
+    return month;
 }
 int Date::getYear() const{
-    return this->year;
+    return year;
 }
 
 
@@ -69,9 +69,9 @@ bool Date::isLeap(int year) {
         return true;
     }
 }
- static int daysBetween(const Date& date1, const Date& date2) {
+  int Date::daysBetween(const Date& date1, const Date& date2) {
         std::tm tm1 = {0, 0, 0, date1.getDay(), date1.getMonth() - 1, date1.getYear() - 1900};
-        std::tm tm2 = {0, 0, 0, date2.getDay(), date2.getYear() - 1, date2.getYear() - 1900};
+        std::tm tm2 = {0, 0, 0, date2.getDay(), date2.getMonth() - 1, date2.getYear() - 1900};
 
         std::time_t time1 = std::mktime(&tm1);
         std::time_t time2 = std::mktime(&tm2);
@@ -81,6 +81,10 @@ bool Date::isLeap(int year) {
 
         return static_cast<int>(difference);
     }
+    std::ostream& operator<<(std::ostream& os, const Date& dt) {
+    os << dt.getDay() << "-" << dt.getMonth() << "-" << dt.getYear();
+    return os;
+}
 
 Date Date::stringToDate(const std::string &dateString) {
     std::istringstream dateStream(dateString);
