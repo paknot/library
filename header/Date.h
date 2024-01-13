@@ -3,9 +3,11 @@
 #ifndef DATE_H
 #define DATE_H
 #include <iostream>
-#include <sstream>
-#include <ctime>
 #include <chrono>
+#include <iomanip>
+#include <ctime>
+#include <sstream>
+
 class Date
 {
 private:
@@ -17,24 +19,21 @@ public:
     //Date itself
     Date();
     Date(int day, int month, int year);
-    std::string getFormatDate();
+    
 
     //Dates
     bool isDateValid();
     bool isLeap(int year);
-    static int daysBetween(const std::string &currentDate, const std::string &dueDate);
+    static int daysBetween(const Date& date1, const Date& date2);
     static Date stringToDate(const std::string &dateString);
     Date getDateAfter();
 
-    //Sets
-    void setDay(int day);
-    void setMonth(int month);
-    void setYear(int year);
+    
 
     //Gets
-    int getDay();
-    int getMonth();
-    int getYear();
+    int getDay() const;
+    int getMonth()const ;
+    int getYear() const;
 };
 
 #endif

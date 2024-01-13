@@ -35,7 +35,7 @@ public:
     std::string getBookName() const;
     std::string getAuthorFirstName() const;
     std::string getAuthorLastName() const;
-    Date getDueDate() const;
+    Date getDueDate() ;
 
     //Set duedate
 

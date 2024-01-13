@@ -1,54 +1,28 @@
 #include "../header/Date.h"
 
 Date::Date(int day, int month, int year){
-    this->day = day;
-    this->month = month;
-    this->year = year;
+   
 }
 Date::Date(){
-    this->day=11;
-    this->month=1;
-    this->year=2024;  
+   std::time_t t = std::time(nullptr);
+    std::tm *now = std::localtime(&t);
+    day = now->tm_mday;
+    month = now->tm_mon + 1;
+    year = now->tm_year + 1900;
 }
 
     //Gets
-int Date::getDay(){
+int Date::getDay()const{
     return this->day;
 }
-int Date::getMonth(){
+int Date::getMonth() const{
     return this->month;
 }
-int Date::getYear(){
+int Date::getYear() const{
     return this->year;
 }
-    //Sets
-void Date::setDay(int day) {
-    int originalDay = this->day;
-    this->day = day; //temp
-    if (!isDateValid()) {
-        this->day = originalDay; //reverse
-        std::cerr << "Invalid day: " << day << " Day must be a real day" << std::endl;
-    }
-}
-void Date::setMonth(int month){
-int originalMonth = this->month;
-    this->month = month; //temp
-    if (!isDateValid()) {
-        this->month = originalMonth; //reverse
-        std::cerr << "Invalid month: " << day << ", must be 1-12." << std::endl;
-    }
-}
-void Date::setYear(int year){
-int originalYear = this->year;
-    this->year = year; //temp
-    if (!isDateValid()) {
-        this->year = originalYear; //reverse
-        std::cerr << "Invalid year " << day << ", must be 2020-2026" << std::endl;
-    }
-}
-std::string Date::getFormatDate(){
-    return std::to_string(day) + '-' + std::to_string(month) + '-' + std::to_string(year);
-}
+
+
 
 //check the date
 bool Date::isDateValid() {
@@ -95,21 +69,18 @@ bool Date::isLeap(int year) {
         return true;
     }
 }
-int Date::daysBetween(const std::string &currentDate, const std::string &dueDate) {
-    Date date1 = stringToDate(currentDate);
-    Date date2 = stringToDate(dueDate);
+ static int daysBetween(const Date& date1, const Date& date2) {
+        std::tm tm1 = {0, 0, 0, date1.getDay(), date1.getMonth() - 1, date1.getYear() - 1900};
+        std::tm tm2 = {0, 0, 0, date2.getDay(), date2.getYear() - 1, date2.getYear() - 1900};
 
-    std::tm tm1 = {0, 0, 0, date1.day, date1.month - 1, date1.year - 1900};
-    std::tm tm2 = {0, 0, 0, date2.day, date2.month - 1, date2.year - 1900};
+        std::time_t time1 = std::mktime(&tm1);
+        std::time_t time2 = std::mktime(&tm2);
 
-    std::time_t time1 = std::mktime(&tm1);
-    std::time_t time2 = std::mktime(&tm2);
+        const double secondsPerDay = 60 * 60 * 24;
+        double difference = std::difftime(time2, time1) / secondsPerDay;
 
-    const double secondsPerDay = 60 * 60 * 24;
-    double difference = std::difftime(time2, time1) / secondsPerDay;
-
-    return static_cast<int>(difference);
-}
+        return static_cast<int>(difference);
+    }
 
 Date Date::stringToDate(const std::string &dateString) {
     std::istringstream dateStream(dateString);
@@ -121,16 +92,16 @@ Date Date::stringToDate(const std::string &dateString) {
     return Date(day, month, year);
 }
 Date Date::getDateAfter() {
-    //convert to tm struct
-    std::tm tm = {0, 0, 0, this->day, this->month - 1, this->year - 1900};
+        //gettign the current date
+        auto current = std::chrono::system_clock::now();
 
-    //make it a time_t
-    std::time_t time = std::mktime(&tm);
+        //adding 3 days in hours
+        auto threeDays = current + std::chrono::hours(72);
 
-    //3 days
-    time += 3 * 24 * 60 * 60;
+        //swithc to tm
+        time_t tt = std::chrono::system_clock::to_time_t(threeDays);
+        tm tm = *std::localtime(&tt);
+        
+        return Date(tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
+    }
 
-    //convert back to tm
-    std::tm *newTm = std::localtime(&time);
-    return Date(newTm->tm_mday, newTm->tm_mon + 1, newTm->tm_year + 1900);
-}

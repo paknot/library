@@ -25,7 +25,7 @@ std::string Book::getAuthorFirstName() const{
 std::string Book::getAuthorLastName() const{
     return this->authorLastName;
 }
-Date Book::getDueDate() const{
+Date Book::getDueDate() {
     return this->dueDate;
 }
     //Set due date
@@ -40,10 +40,11 @@ void Book::returnBook(){
     this->borrower = nMember;
     this->dueDate = nDate;
 }
-void Book::borrowBook(Member borrower,Date duedate){
-    this->borrower = borrower;
-    setDueDate(dueDate);
+void Book::borrowBook(Member borrower, Date duedate) {    
+    this->borrower = borrower;    
+    setDueDate(duedate); 
 }
+
 //load the books from a file
 
 void Book::loadBooksFromFile(const std::string& filename) {

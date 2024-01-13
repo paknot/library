@@ -68,6 +68,7 @@ int main() {
         }
     } while (true);
     std::cin.ignore(); //ignore new line char
+    
 
     //initialize librarian
     Librarian librarian(libStaffID, libName, libAddress, libEmail, libSalary);

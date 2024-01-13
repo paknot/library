@@ -40,31 +40,28 @@ int Librarian::getStaffID() {
   void Librarian::addMember(){
     Person person;
     std::string memName, memAddress, memEmail;
-    bool validName = false;
-    bool validEmail = false;
+    
     int id = memberList.size() +1;
     //member name
-   while (!validName || !validEmail) {
-        std::cout << "Enter member's name: " << std::endl;
-        std::cin >> memName;
-        if (person.isString(memName)) {
-            validName = true;
-        } else {
-            std::cerr << "Name must only contain letters." << std::endl;
-        }
-    //member email
-        std::cout << "Enter member's email: " << std::endl;
-        std::cin >> memEmail;
-        if (person.isEmail(memEmail)) {
-            validEmail = true;
-        } else {
-            std::cerr << "Invalid email. Email must look like this user@example.com" << std::endl;
-        }
-
-        if (!validName || !validEmail) {
-            std::cout << "Please re-enter member information:" << std::endl;
-        }
+   while (true) {
+    std::cout << "Enter member's name: " << std::endl;
+    std::cin >> memName;
+    if (person.isString(memName)) {
+        break;
+    } else {
+        std::cerr << "Name must only contain letters." << std::endl;
     }
+}
+
+while (true) {
+    std::cout << "Enter member's email: " << std::endl;
+    std::cin >> memEmail;
+    if (person.isEmail(memEmail)) {
+        break;
+    } else {
+        std::cerr << "Invalid email. Email must look like this user@example.com" << std::endl;
+    }
+}
     std::cout << "Enter member's address: " << std::endl;
     std::cin >> memAddress;
 
@@ -94,9 +91,8 @@ int Librarian::getStaffID() {
     //For time
     std::time_t currentTime = std::time(nullptr);
     std::tm *currentTm = std::localtime(&currentTime);
-    Date currentDate(currentTm->tm_mday, currentTm->tm_mon + 1, currentTm->tm_year + 1900);
-    Date newDate = currentDate.getDateAfter();
-
+    Date currentDate;
+   
     // Find the book
    Book* book = nullptr;
     for (auto& b : Book::bookList) {
@@ -109,11 +105,14 @@ int Librarian::getStaffID() {
     // Issue the book
     if (member != nullptr && book != nullptr) {
         member->setBooksBorrowed(*book);
-        book->borrowBook(*member, newDate);
+        book->borrowBook(*member, currentDate.getDateAfter());
         std::cout <<std::endl<< "Book with id: " << bookID << " has been loaned to memberID: "<< memberID << std::endl;
+        std::cout << "Current date (DD-MM-YYYY): " << currentDate.getDay() << "-" << currentDate.getMonth() << "-" << currentDate.getYear() << std::endl;
+        std::cout << "Due date (DD-MM-YYYY): " << currentDate.getDateAfter().getDay() << "-" << currentDate.getDateAfter().getMonth() << "-" << currentDate.getDateAfter().getYear()<< std::endl;
     } else {
         std::cerr << "unknown error. try again?";
     }
+
   }
 
 void Librarian::returnBook(int memberID, int bookID) {
@@ -144,7 +143,7 @@ void Librarian::returnBook(int memberID, int bookID) {
         Date dueDate = book->getDueDate();
 
         // Assuming Date class has a method to calculate the difference in days
-        int daysOverdue = Date::daysBetween(dueDate.getFormatDate(), today.getFormatDate());
+        int daysOverdue = Date::daysBetween(dueDate, today);
         if (daysOverdue > 0) {
             // Calculate fine, £1 per day overdue
             fine = daysOverdue;
@@ -194,11 +193,11 @@ void Librarian::displayBorrowedBooks(int memberID) {
             return;
         }
 
-        for (const auto& book : booksLoaned) {
+        for (auto& book : booksLoaned) {
             std::cout << "Book ID: " << book.getBookID()
                       << ", Title: " << book.getBookName()
                       << ", Author: " << book.getAuthorFirstName() << " " << book.getAuthorLastName()
-                      << ", Due Date: " << book.getDueDate().getFormatDate()
+                      << ", Due Date: " << book.getDueDate().getDay() << "-" << book.getDueDate().getMonth() << "-" << book.getDueDate().getYear()
                       << std::endl;
         }
     } else {
