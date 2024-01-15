@@ -16,7 +16,7 @@ int main() {
 
     std::cout << "Please enter your details as a Librarian" << std::endl;
 
-    // Get and validate name
+    //get a valid name
     do {
         std::cout << "Enter your name (letters only): ";
         std::getline(std::cin, libName);
@@ -38,7 +38,7 @@ int main() {
         }
     } while (!Utils::isEmail(libEmail));
 
-    // Get and validate staff ID
+    //get a valid staff ID
     do {
         std::cout << "Enter librarian staff ID: ";
         if (!(std::cin >> libStaffID)) {
@@ -50,7 +50,7 @@ int main() {
         }
     } while (true);
 
-    // Get and validate salary
+    //get a valid salary
     do {
         std::cout << "Enter librarian salary: ";
         if (!(std::cin >> libSalary)) {
@@ -69,7 +69,7 @@ int main() {
     
     int choice;
     bool running = true;
-
+    //CSV filepath take
     std::string filepath;
     std::cout << "Enter a pathway to your csv file:" <<std::endl;
     std::cin >> filepath;
@@ -87,7 +87,7 @@ int main() {
         continue; 
     }
 
-
+        //Swithc to take care of the numbers
         switch (choice) {
             case 1:
                 librarian.addMember();

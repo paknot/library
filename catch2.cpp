@@ -6,7 +6,9 @@
 #include "header/Date.h"
 #include "header/Person.h"
 
-TEST_CASE("Librarian initializer", "[librarian]") {
+    //test librarian
+
+TEST_CASE("Librarian initializer") {
     int staffID = 123;
     std::string name = "John Doe";
     std::string address = "123 Library Lane";
@@ -21,7 +23,9 @@ TEST_CASE("Librarian initializer", "[librarian]") {
     REQUIRE(librarian.getEmail() == email);
     REQUIRE(librarian.getSalary() == salary);
 }
-TEST_CASE("Book initializer", "Book") {
+    //test book
+
+TEST_CASE("Book initializer") {
     int bookID = 1;
     std::string bookName = "Test Book";
     std::string authorFirstName = "Jane";
@@ -51,7 +55,10 @@ SECTION("Checking loan functionality") {
 
     }
 }
-TEST_CASE("Member initializer", "[member]") {
+
+    //test member
+
+TEST_CASE("Member initializer") {
     int memberID = 1;
     std::string name = "Ankara Messi";
     std::string address = "123 Main St";
@@ -80,7 +87,10 @@ TEST_CASE("Member initializer", "[member]") {
         REQUIRE(booksLoaned[0].getAuthorLastName() == book.getAuthorLastName());
     }
 }
-TEST_CASE("Date functionality", "[date]") {
+
+    //test Date
+
+TEST_CASE("Date functionality") {
     SECTION("Date construction with specific date") {
         Date specificDate(18, 4, 2024); 
         REQUIRE(specificDate.getDay() == 18);

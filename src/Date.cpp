@@ -3,6 +3,7 @@
 Date::Date(int day, int month, int year) : day(day), month(month), year(year){
    
 }
+//Set initial value to current date
 Date::Date(){
    std::time_t t = std::time(nullptr);
     std::tm *now = std::localtime(&t);
@@ -12,19 +13,23 @@ Date::Date(){
 }
 
     //Gets
+
+//getDay
 int Date::getDay()const{
     return day;
 }
+//getMonth
 int Date::getMonth() const{
     return month;
 }
+//getYear
 int Date::getYear() const{
     return year;
 }
 
 
 
-//days between 2 date
+//days between 2 dates
   int Date::daysBetween(const Date& date1, const Date& date2) {
         std::tm tm1 = {0, 0, 0, date1.getDay(), date1.getMonth() - 1, date1.getYear() - 1900};
         std::tm tm2 = {0, 0, 0, date2.getDay(), date2.getMonth() - 1, date2.getYear() - 1900};
@@ -42,7 +47,7 @@ int Date::getYear() const{
     return os;
 }
 
-//3 days after
+    //3 days after
 Date Date::getDateAfter() {
         //gettign the current date
         auto current = std::chrono::system_clock::now();

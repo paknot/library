@@ -24,10 +24,6 @@ public:
 
     //Sets
     void setBooksBorrowed(Book book);
-    void setMemberID();
-
-    //Removes books
-    void removeBookByName(std::string bookName);
 
 };
 

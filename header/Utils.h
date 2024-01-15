@@ -9,5 +9,4 @@ public:
     static void displayMenu();
     static bool isEmail(const std::string& email);
     static bool isString(const std::string& str);
-    
 };

@@ -36,8 +36,8 @@ public:
   std::vector<Member> memberList;
   
     
-    //Sets
-  void getID();
+   
+
   
   	
 

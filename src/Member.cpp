@@ -13,7 +13,7 @@ Member::Member(){
 
 }
 
-
+//get MemberID
 std::string Member::getMemberID(){
 return std::to_string(this->memberID);
 }
@@ -21,6 +21,7 @@ return std::to_string(this->memberID);
 std::vector<Book>& Member::getBooksBorrowed(){
 	return this->booksLoaned;
 }
+//Set books borrowed
 void Member::setBooksBorrowed(Book book) {
     this->booksLoaned.push_back(book);
 }

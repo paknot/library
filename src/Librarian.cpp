@@ -14,17 +14,19 @@ Librarian::Librarian(int staffID, std::string name, std::string adress, std::str
     setAddress(adress);
     setEmail(email);
 }
-//Set Staff ID
 
 
+    //Gets
 
+//get staffID
 int Librarian::getStaffID() {
     return this->staffID;
   }
-  int Librarian::getSalary() {
+//get Salary
+int Librarian::getSalary() {
     return this->salary;
   }
-
+//Add Mmeber
   void Librarian::addMember(){
     Utils util;
     std::string memName, memAddress, memEmail;
@@ -40,7 +42,7 @@ int Librarian::getStaffID() {
         std::cerr << "Name must only contain letters." << std::endl;
     }
 }
-
+    //member email
 while (true) {
     std::cout << "Enter member's email: " << std::endl;
     std::cin >> memEmail;
@@ -50,6 +52,7 @@ while (true) {
         std::cerr << "Invalid email. Email must look like this user@example.com" << std::endl;
     }
 }
+    //member address
     std::cout << "Enter member's address: " << std::endl;
     std::cin >> memAddress;
 
@@ -64,6 +67,8 @@ while (true) {
 
   }
   std::vector<Book> Book::bookList;
+
+    //Issue book method
 
   void Librarian::issueBook(int memberID, int bookID) {
     
@@ -110,6 +115,8 @@ while (true) {
 
   }
 
+    //Return book
+
 void Librarian::returnBook(int memberID, int bookID) {
     Member* member = nullptr;
     Book* book = nullptr;
@@ -136,31 +143,30 @@ void Librarian::returnBook(int memberID, int bookID) {
         
         Date today; 
         
-        
-
-        // Assuming Date class has a method to calculate the difference in days
+        //calc the difference in days
         int daysOverdue = Date::daysBetween(book->getDueDate(), today);
         if (daysOverdue > 0) {
-            // Calculate fine, £1 per day overdue
+            //calc the fine, £1 per day overdue
             fine = daysOverdue;
         }
 
-        //remove books
+        //remove books for borrowed
         auto& booksLoaned = member->getBooksBorrowed();
         booksLoaned.erase(std::remove_if(booksLoaned.begin(), booksLoaned.end(),
                           [bookID](const Book& b) { return std::stoi(b.getBookID()) == bookID; }),
                           booksLoaned.end());
 
-        // Reset the borrower and due date in the Book object
+        //reset teh borrowed and duedate
         book->returnBook();
         
-        // Output the fine if there is one
+        //Fine
         if (fine > 0) {
             std::cout << "The book is overdue. The fine is £" << fine << ".\n";
         } else {
             std::cout << "Book returned on time. No fine due.\n";
         }
     } else {
+        //If something not found
         if (!member) {
             std::cerr << "Member ID " << memberID << " not found." << std::endl;
         }
@@ -169,9 +175,12 @@ void Librarian::returnBook(int memberID, int bookID) {
         }
     }
 }
-void Librarian::displayBorrowedBooks(int memberID) {
-    // Find the member again
 
+    //Dissplay Borrowed Books
+
+void Librarian::displayBorrowedBooks(int memberID) {
+    
+    // Find the member again
     Member* member = nullptr;
     for (auto& m : memberList) {
         if (std::stoi(m.getMemberID()) == memberID) {
