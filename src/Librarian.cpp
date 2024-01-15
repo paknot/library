@@ -2,7 +2,7 @@
 #include "../header/Member.h"
 #include "../header/Person.h"
 #include "../header/Book.h"
-
+#include "../header/Utils.h"
 #include <string>
 #include <iostream>
  
@@ -26,7 +26,7 @@ int Librarian::getStaffID() {
   }
 
   void Librarian::addMember(){
-    Person person;
+    Utils util;
     std::string memName, memAddress, memEmail;
     
     int id = memberList.size() +1;
@@ -34,7 +34,7 @@ int Librarian::getStaffID() {
    while (true) {
     std::cout << "Enter member's name: " << std::endl;
     std::cin >> memName;
-    if (person.isString(memName)) {
+    if (util.isString(memName)) {
         break;
     } else {
         std::cerr << "Name must only contain letters." << std::endl;
@@ -44,7 +44,7 @@ int Librarian::getStaffID() {
 while (true) {
     std::cout << "Enter member's email: " << std::endl;
     std::cin >> memEmail;
-    if (person.isEmail(memEmail)) {
+    if (util.isEmail(memEmail)) {
         break;
     } else {
         std::cerr << "Invalid email. Email must look like this user@example.com" << std::endl;

@@ -3,10 +3,12 @@
 #include "../header/Person.h"
 #include "../header/Book.h"
 #include "../header/Date.h"
+#include "../header/utils.h"
 
 //Sets
 void Person::setName(std::string name) {
-    if(isString(name)){
+    
+    if(Utils::isString(name)){
         this->name = name;
     } else{
         std::cerr <<"invalid input, needs to be a string "<< name <<std::endl;
@@ -15,7 +17,8 @@ void Person::setName(std::string name) {
 }
 
 void Person::setAddress(std::string address) {
-    if(isString(name)){
+    
+    if(Utils::isString(name)){
         this->address = address;
     } else{
         std::cerr <<"invalid input, needs to be a string "<< address <<std::endl;
@@ -24,7 +27,8 @@ void Person::setAddress(std::string address) {
 }
 
 void Person::setEmail(std::string email) {
-    if(isEmail(email)){
+    
+    if(Utils::isEmail(email)){
 	this->email = email;
 	} else {
 		std::cerr<< "invalid email: " << email << std::endl;
@@ -44,19 +48,7 @@ std::string Person::getEmail(){
 std::string Person::getAddress(){
     return this->address;
 }
-//valid email check
-bool Person::isEmail(const std::string& email) {
-        
-        std::regex emailRegex("(\\w+)(\\.|_)?(\\w*)@(\\w+)(\\.(\\w+))+");
 
-        //return true if match
-        return std::regex_match(email, emailRegex);
-    }
-//valid string check
-bool Person::isString(const std::string& str) {
-    return std::all_of(str.begin(), str.end(), [](char c) {
-        return std::isalpha(c) || c == ' '; // Allow spaces
-    });
-}
+
 
 

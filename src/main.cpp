@@ -5,32 +5,25 @@
 #include "../header/Person.h"
 #include "../header/Book.h"
 #include "../header/Date.h"
+#include "../header/Utils.h"
 
-//method to display the menu
-void displayMenu() {
-    std::cout << "Library Management System" << std::endl;
-    std::cout << "1. Add a member" << std::endl;
-    std::cout << "2. Issue a book to a member" << std::endl;
-    std::cout << "3. Return a book from a member and calc a fine" << std::endl;
-    std::cout << "4. Display all books borrowed by a member" << std::endl;
-    std::cout << "5. Exit" << std::endl;
-    std::cout << "Enter your choice: ";
-}
+
 
 int main() {
     std::string libName, libAddress, libEmail;
     int libStaffID, libSalary;
+    
 
-    std::cout << "Please enter your as a Librarian" << std::endl;
+    std::cout << "Please enter your details as a Librarian" << std::endl;
 
     // Get and validate name
     do {
         std::cout << "Enter your name (letters only): ";
         std::getline(std::cin, libName);
-        if (!Person::isString(libName)) {
+        if (!Utils::isString(libName)) {
             std::cout << "Invalid name. Please use letters only.\n";
         }
-    } while (!Person::isString(libName));
+    } while (!Utils::isString(libName));
 
     //adress
     std::cout << "Enter your address: ";
@@ -40,10 +33,10 @@ int main() {
     do {
         std::cout << "Enter your email: ";
         std::getline(std::cin, libEmail);
-        if (!Person::isEmail(libEmail)) {
+        if (!Utils::isEmail(libEmail)) {
             std::cout << "Invalid email format. Should be in a format user@user.com .\n";
         }
-    } while (!Person::isEmail(libEmail));
+    } while (!Utils::isEmail(libEmail));
 
     // Get and validate staff ID
     do {
@@ -73,6 +66,7 @@ int main() {
 
     //initialize librarian
     Librarian librarian(libStaffID, libName, libAddress, libEmail, libSalary);
+    
     int choice;
     bool running = true;
 
@@ -83,7 +77,7 @@ int main() {
     bookInstance.loadBooksFromFile(filepath);
 
     while (running) {
-        displayMenu();
+        Utils::displayMenu();
         std::cin >> choice;
 
         if (std::cin.fail()) {

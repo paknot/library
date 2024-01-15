@@ -5,9 +5,7 @@
 
 #include <iostream>
 #include <string>
-#include <regex>
-#include <algorithm>
-#include <cctype>
+
 
 class Person {
 private:
@@ -29,8 +27,7 @@ public:
     void setAddress(std::string address);
     void setEmail(std::string email);
 
-    static bool isEmail(const std::string& email);
-    static bool isString(const std::string& str);
+    
 };
 
 #endif 
