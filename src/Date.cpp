@@ -24,51 +24,7 @@ int Date::getYear() const{
 
 
 
-//check the date
-bool Date::isDateValid() {
-
-    if (year < 2020 || year > 2026) {
-        return false;
-    }
-    
-    if (month < 1 || month > 12) {
-        return false;
-    }
-
-    //day
-    if (day < 1 || day > 31) {
-        return false;
-    }
-
-    //check feb
-    if (month == 2) {
-        if (isLeap(year)) {
-            return day <= 29;
-        } else {
-            return day <= 28;
-        }
-    }
-
-    // April, June, Sept, Nov
-    if (month == 4 || month == 6 || month == 9 || month == 11) {
-        return day <= 30;
-    }
-
-    
-    return true;
-}
-
-bool Date::isLeap(int year) {
-    if (year % 4 != 0) {
-        return false;
-    } else if (year % 100 != 0) {
-        return true;
-    } else if (year % 400 != 0) {
-        return false;
-    } else {
-        return true;
-    }
-}
+//days between 2 date
   int Date::daysBetween(const Date& date1, const Date& date2) {
         std::tm tm1 = {0, 0, 0, date1.getDay(), date1.getMonth() - 1, date1.getYear() - 1900};
         std::tm tm2 = {0, 0, 0, date2.getDay(), date2.getMonth() - 1, date2.getYear() - 1900};
@@ -86,15 +42,7 @@ bool Date::isLeap(int year) {
     return os;
 }
 
-Date Date::stringToDate(const std::string &dateString) {
-    std::istringstream dateStream(dateString);
-    int day, month, year;
-    char delim;
-
-    dateStream >> day >> delim >> month >> delim >> year;
-
-    return Date(day, month, year);
-}
+//3 days after
 Date Date::getDateAfter() {
         //gettign the current date
         auto current = std::chrono::system_clock::now();

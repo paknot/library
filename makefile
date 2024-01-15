@@ -35,4 +35,3 @@ bin:
 clean:
 	rm -f $(OBJECTS) $(EXECUTABLE)
 	rm -rf bin
-

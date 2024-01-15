@@ -6,6 +6,7 @@
 #include "../header/Book.h"
 #include "../header/Date.h"
 
+//method to display the menu
 void displayMenu() {
     std::cout << "Library Management System" << std::endl;
     std::cout << "1. Add a member" << std::endl;
@@ -52,7 +53,7 @@ int main() {
             std::cin.clear(); // Clear the error state
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
         } else {
-            break; // Valid input
+            break; //valid
         }
     } while (true);
 
@@ -61,7 +62,7 @@ int main() {
         std::cout << "Enter librarian salary: ";
         if (!(std::cin >> libSalary)) {
             std::cout << "Invalid input. Please enter a number.\n";
-            std::cin.clear(); // Clear the error state
+            std::cin.clear(); // Clear the error 
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
         } else {
             break; // Valid

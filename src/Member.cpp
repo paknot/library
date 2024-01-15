@@ -1,6 +1,4 @@
 #include "../header/Member.h"
-#include <ctime>
-#include <cstdlib>
 #include <string>
 #include "../header/Book.h"
 

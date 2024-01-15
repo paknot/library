@@ -49,7 +49,7 @@ void Book::borrowBook(Member borrower, Date duedate) {
         this->borrower = borrower;
         setDueDate(duedate);
         this->isLoaned = true;
-        std::cout << "Debug: Book ID " << this->getBookID() << " due date set to: " << this->getDueDate() << std::endl;
+        std::cout << "Book ID " << this->getBookID() << " due date set to: " << this->getDueDate() << std::endl;
     } else {
         std::cerr << "Book is already loaned." << std::endl;
     }

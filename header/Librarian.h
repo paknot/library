@@ -38,11 +38,10 @@ public:
     
     //Sets
   void getID();
-  void setStaffID(int staffID);
-  void setSalary(int salary);
+  
   	
-  	// Calculate the fine
-  void calcFine(int memberID);
+
+  
     
 };
 

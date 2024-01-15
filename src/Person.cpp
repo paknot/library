@@ -45,17 +45,18 @@ std::string Person::getAddress(){
     return this->address;
 }
 //valid email check
-    bool Person::isEmail(const std::string& email) {
+bool Person::isEmail(const std::string& email) {
         
         std::regex emailRegex("(\\w+)(\\.|_)?(\\w*)@(\\w+)(\\.(\\w+))+");
 
         //return true if match
         return std::regex_match(email, emailRegex);
     }
-     bool Person::isString(const std::string& str) {
-        return std::all_of(str.begin(), str.end(), [](char c) {
-            return std::isalpha(c);
-        });
-    }
+//valid string check
+bool Person::isString(const std::string& str) {
+    return std::all_of(str.begin(), str.end(), [](char c) {
+        return std::isalpha(c) || c == ' '; // Allow spaces
+    });
+}
 
 
